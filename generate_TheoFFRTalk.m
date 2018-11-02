@@ -85,7 +85,13 @@ for f = 1:length(frequency)
         if Fn<dropoutfreq(L)  % ramps down the frequency 
             if L>4
             if Fn>=dropoutfreq(L)/2
-                matrix(:,L) = matrix(:,L) * (1-(Fn./dropoutfreq(L)));
+                %matrix(:,L) = matrix(:,L) * (1-(Fn./dropoutfreq(L)));
+                %%this will immediately halve the amplitude instead of
+                %%linear ramp
+                
+                matrix(:,L) = matrix(:,L) * (2 - (2 * (Fn./dropoutfreq(L))));
+                %This should now linearly ramp it
+                
             end
             end
          
