@@ -90,7 +90,7 @@ for f = 1:length(frequency)
                 %%linear ramp
                 
                 matrix(:,L) = matrix(:,L) * (2 - (2 * (Fn./dropoutfreq(L))));
-                %This should now linearly ramp it
+                %Ramp amplitude linearly down beginning at drop-out frequency/2
                 
             end
             end
