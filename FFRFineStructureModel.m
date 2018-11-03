@@ -51,7 +51,7 @@ for n = 1:(counter)
     end
     
     %Compute theorectical FFRs
-    [frequency, theorNoLP, theor]= generate_TheoFFRTalk(lantencyperc/1000,  dropoutfreq,amp, LP, frequency, stimamp);
+    [frequency, theorNoLP, theor]= generate_TheoFFR(lantencyperc/1000,  dropoutfreq,amp, LP, frequency, stimamp);
     
     %Plot
     plot(frequency,theor, 'ko-', 'LineWidth', 2, 'Color', colorVec(n,:)); 
