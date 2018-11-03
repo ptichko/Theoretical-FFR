@@ -7,10 +7,10 @@ close all
 % Parameters
 
 % Subject 1 (Tichko & Skoe, 2017)
-% FFRFine_parameters_PercentageChanges
+% parameters_PercentageChanges
 
 % Purcell et al. (2004)
-FFRFine_parameters_Purcell
+parameters_Purcell
 
 %Change latencies by maximum pertange in and in % intervals
 maxperc  = 25; %total perc change
