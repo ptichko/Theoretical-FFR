@@ -7,7 +7,7 @@ close all
 % Parameters
 
 % Subject 1 (Tichko & Skoe, 2017)
-% parameters_PercentageChanges
+% parameters_TichkoSkoe
 
 % Purcell et al. (2004)
 parameters_Purcell
