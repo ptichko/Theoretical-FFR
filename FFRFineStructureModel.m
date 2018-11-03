@@ -37,7 +37,7 @@ xlabel('Frequency (Hz)')
 hold on;
 
 %Delays latencies
-for n = 1:(counter)
+for n = 1:counter
     
     %Copy latencies before change by perc
     lantencyperc = latency;
