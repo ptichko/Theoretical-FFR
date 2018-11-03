@@ -7,12 +7,12 @@ close all
 % Parameters
 
 % Subject 1 (Tichko & Skoe, 2017)
-% parameters_TichkoSkoe
+ parameters_TichkoSkoe
 
 % Purcell et al. (2004)
-parameters_Purcell
+% parameters_Purcell
 
-%Change latencies by maximum pertange in and in % intervals
+%Change latencies by maximum percentage and in % intervals
 maxperc  = 25; %total perc change
 percinterv = 5; %interval perc change
 
