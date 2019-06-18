@@ -3,7 +3,6 @@ close all
 
 % %  REFER TO TICHKO AND SKOE (2017) FOR DETAILS ABOUT METHODOLOGY % %
 
-
 % Parameters
 
 % Subject 1 (Tichko & Skoe, 2017)
@@ -51,7 +50,7 @@ for n = 1:counter
     end
     
     %Compute theorectical FFRs
-    [frequency, theorNoLP, theor]= generate_TheoFFR(lantencyperc/1000,  dropoutfreq,amp, LP, frequency, stimamp);
+    [frequency, theorNoLP, theor]= generate_TheoFFR('audio', 'sinewave', lantencyperc/1000,  dropoutfreq,amp, LP, frequency, stimamp);
     
     %Plot
     plot(frequency,theor, 'ko-', 'LineWidth', 2, 'Color', colorVec(n,:)); 
