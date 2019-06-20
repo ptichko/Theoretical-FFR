@@ -1,17 +1,13 @@
-function [frequency, peak, peakBP, t, finalwaveBP] = generate_TheoFFR(audio, varargin);
+function [frequency, peak, peakBP, t, finalwaveBP, xFFT, fft_truncBP] = generate_TheoFFR(varargin)
+
 
 %   Required input argumenets:
-%   audio           Specify audio-stimulus type, 'wav' or 'sinewave'. Use 'wav' and the audiofile name to load
-%                   a .wav audio file. Use'sinewave' to generate sinewave
-%                   stimuli at user-specified frequencies.
-%
-%  'wav'            Followed by a file name to load
-%  'sinewave'       Followed by a scalar of vector of frequencies to
-%                   generate sinewave stimuli for
-
-%   Optional input arguments:
+%   audiotype       First agument must be 'wav' or 'sinewave'.
+%                   Use 'wav', followed by file name, to load a .wav audio file.
+%                   Use'sinewave' to generate sinewave stimuli at user-specified frequencies.
+%                   
 %   latency         A vector of latency values to offset the
-%                   phase (in milliseconds) of each generator.
+%                   phase (in seconds) of each generator.
 %
 %   dropoutfreq     A vector of drop-out frequencies for each generator.
 %                   Above the drop-out frequency, that generator will no longer contribute
@@ -32,28 +28,39 @@ function [frequency, peak, peakBP, t, finalwaveBP] = generate_TheoFFR(audio, var
 
 %   Output Arguments:
 %   frequency       Frequency of auditory stimulus (useful for sinewave)
-%   peak            amp
-%   peakBP          asf
+%   peak            Spectral amplitude of unfiltered FFR waveform
+%   peakBP          Spectral amplitude of LPF FFR waveform
 %   t               Time step to plot FFR waveform in time domain
 %   finalwaveBP     Final FFR waveform in time domain
+%   xFFT            Frequency step to plot FFT of LPF FFR waveform
+%   fft_truncBP 	Spectrum (FFT) of the LPF FFR waveform
 
 % Examples:
 
-% Audio
-% latency = [0 2.6 4.2 7.8 13.6 23.8]/1000; %convert milliseconds to secs
-% amp = [1 1 1 2 3 4];
-% dropoutfreq = [880 880 880 880 200 100];  %drop out frequenices for each generator. 
-% LP = 200; 
-% dB_scaled = ones(1, length(frequency));
+% Audio:
+% audiofile = 'sinesAfade_9_audend.wav';      % audofile to use as stimulus
+% frequency = 220;                            % Must pass at least one freq to initiate loop in generate_TheoFFR
+% latency = [0 2.6 4.2 7.8 13.6 23.8]/1000;   % generator latencies (convert from ms to s) 
+% amp = [1 1 1 2 3 4];                        % amplitude for each generator
+% dropoutfreq = [880 880 880 880 200 100];    % drop out frequenices for each generator. ** Doesn't work for audiofiles ** 
+% LP = 200;                                   % low-pass filter cut-off freq
+% dB_scaled = 1;                               % scale amp of stimuli **** Doesn't work for audiofiles ** 
+% 
+% [frequency, theorNoLP, theor, t, finalwave]= generate_TheoFFR( 'wav', audiofile,...
+% latency,  dropoutfreq, amp, LP, frequency, dB_scaled);
+% 
+% varargin = {'wav', audiofile, latency,  dropoutfreq, amp, LP, frequency, dB_scaled};
 
-% Sinewavej
+% Sinewave:
 % frequency = [40:10:300];
 % latency = [0 2.6 4.2 7.8 13.6 23.8]/1000; %convert milliseconds to secs
 % amp = [1 1 1 2 3 4];
 % dropoutfreq = [880 880 880 880 200 100];  %drop out frequenices for each generator. 
 % LP = 200; 
 % dB_scaled = ones(1, length(frequency));
-% generate_TheoFFR('audio', 'sinewave', latency, dropoutfreq, amp, LP, frequency, dB_scaled)
+% generate_TheoFFR('sinewave', latency, dropoutfreq, amp, LP, frequency, dB_scaled)
+
+% varargin = {'sinewave', latency, dropoutfreq, amp, LP, frequency, dB_scaled};
 
 %% Initialize parameters
 % audiotype   = 'sinewave';
@@ -68,9 +75,11 @@ function [frequency, peak, peakBP, t, finalwaveBP] = generate_TheoFFR(audio, var
 %% Parse inputs
 
 for i = 1:length(varargin)
+    
     if strcmpi(varargin{i},'sinewave') && length(varargin) > i + 5 && ~ischar(varargin{i+1}) ...
             && ~ischar(varargin{i+2}) && ~ischar(varargin{i+3}) && ~ischar(varargin{i+4}) ... 
             && ~ischar(varargin{i+5}) && ~ischar(varargin{i+6})
+       
         audiotype   = varargin{i};
         latency     = varargin{i+1};
         dropoutfreq = varargin{i+2};
@@ -80,18 +89,18 @@ for i = 1:length(varargin)
         dB_scaled   = varargin{i+6};
     end
     
-    if strcmpi(varargin{i},'wav') && length(varargin) > i + 5 && ~ischar(varargin{i+1}) ...
+    if strcmpi(varargin{i},'wav') && length(varargin) > i + 5 ...
             && ~ischar(varargin{i+2}) && ~ischar(varargin{i+3}) && ~ischar(varargin{i+4}) ...
-            && ~ischar(varargin{i+5}) && ~ischar(varargin{i+6}) && ~ischar(varargin{i+7}) ...
-            && ~ischar(varargin{i+8})
+            && ~ischar(varargin{i+5}) && ~ischar(varargin{i+6}) && ~ischar(varargin{i+7})
+        
         audiotype   = varargin{i};
-        audiofile   = varargin{i+2};
-        latency     = varargin{i+3};
-        dropoutfreq = varargin{i+4};
-        amp         = varargin{i+5};
-        LP          = varargin{i+6};
-        frequency   = varargin{i+7};
-        dB_scaled   = varargin{i+8};
+        audiofile   = varargin{i+1};
+        latency     = varargin{i+2};
+        dropoutfreq = varargin{i+3};
+        amp         = varargin{i+4};
+        LP          = varargin{i+5};
+        frequency   = varargin{i+6};
+        dB_scaled   = varargin{i+7};
         
     end
     
@@ -111,18 +120,20 @@ for f = 1:length(frequency)
         case('wav')
      
         % User-specified audiofile
-        [y Fs] = audioread(audiofile); % signal and sample rate
-        t = 0 : 1/Fs : (length(y)/Fs - 1/Fs); % calculate time steps
-     
-        % Plot audiofile
-        figure;
-        hold on;
-        ylabel('Amplitude');
-        xlabel('Time (Seconds)');
-        title('Auditory Stimulus');
-        plot(t, y)
-        hold off;
+        [y Fs] = audioread(audiofile);          % signal and sample rate
+        t = 0 : 1/Fs : (length(y)/Fs - 1/Fs);   % calculate time steps
         
+        Fn = frequency(f);                      % Set Fn to complete loop 
+
+        % Plot audiofile
+%         figure;
+%         hold on;
+%         ylabel('Amplitude');
+%         xlabel('Time (Seconds)');
+%         title('Auditory Stimulus');
+%         plot(t, y)
+%         hold off;
+%         
     case('sinewave')
         %% Generate Sinewave
         
@@ -280,9 +291,19 @@ for f = 1:length(frequency)
     xFFT = [0:1:Fs/2]';   % step size is 1
     hold on;
     
+    % Extract spectral amplitude
+    switch(audiotype)
+        
+        case('wav')
+            
+            peak(f) = fft_trunc(round(Fn));         % Spectral amplitude is meaningless for wav
+            peakBP(f) = fft_truncBP(round(Fn));     % Don't use. Just need code to finish loop.
+            
+        case('sinewave')
     
-    peak(f) = fft_trunc(round(Fn+1));
-    peakBP(f) = fft_truncBP(round(Fn+1));
+            peak(f) = fft_trunc(round(Fn+1));
+            peakBP(f) = fft_truncBP(round(Fn+1));
+    end
     
 
 end
