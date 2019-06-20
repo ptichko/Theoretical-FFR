@@ -4,7 +4,9 @@ close all
 %% AUDIO EXAMPLE
 
 % Parameters
-audiofile = 'sinesAfade_9_audend.wav';      % audofile to use as stimulus
+%audiofile = 'sinesAfade_9_audend.wav';      % audiofile to use as stimulus
+audiofile = 'end zeros audpadded.wav';      % audiofile to use as stim
+
 frequency = 200;                            % Must pass at least one freq to initiate loop in generate_TheoFFR
 latency = [0 2.6 4.2 7.8 13.6 23.8]/1000;   % generator latencies (convert from ms to s) 
 amp = [1 1 1 2 3 4];                        % amplitude for each generator
@@ -32,6 +34,7 @@ hold on;
 ylabel('Spectral Amplitude (microVolts)');
 xlabel('Frequency (Hz)');
 title('FFT of FFR Waveform');
+xlim([0 600]);
 plot(xFFR, finalwaveFFT)
 hold off;
 

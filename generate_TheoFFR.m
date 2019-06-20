@@ -291,12 +291,12 @@ for f = 1:length(frequency)
     xFFT = [0:1:Fs/2]';   % step size is 1
     hold on;
     
-    % Extract spectral amplitude
+    %%% EXTRACT SPECTRAL AMPLITUDES
     switch(audiotype)
         
         case('wav')
             
-            peak(f) = fft_trunc(round(Fn));         % Spectral amplitude is meaningless for wav
+            peak(f) = fft_trunc(round(Fn));         % Spectral amplitude is meaningless for audiofiles.
             peakBP(f) = fft_truncBP(round(Fn));     % Don't use. Just need code to finish loop.
             
         case('sinewave')
