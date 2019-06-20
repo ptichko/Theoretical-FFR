@@ -1,7 +1,7 @@
 clear all
 close all
 
-%% AUDIO EXAMPLE
+%% AUDIO EXAMPLE %%
 
 % Parameters
 %audiofile = 'sinesAfade_9_audend.wav';      % audiofile to use as stimulus
@@ -25,17 +25,17 @@ hold on;
 ylabel('Amplitude');
 xlabel('Time (Seconds)');
 title('FFR Waveform');
-plot(t, finalwave)
+plot(t, finalwave);
 hold off;
 
 % Plot FFR waveform in freq domain (FFT)
 figure;
 hold on;
+xlim([0 600]);
 ylabel('Spectral Amplitude (microVolts)');
 xlabel('Frequency (Hz)');
 title('FFT of FFR Waveform');
-xlim([0 600]);
-plot(xFFR, finalwaveFFT)
+plot(xFFR, finalwaveFFT);
 hold off;
 
 

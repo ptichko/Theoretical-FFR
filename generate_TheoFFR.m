@@ -213,13 +213,15 @@ for f = 1:length(frequency)
         end
     end
     
-    % Scale amplitude if there is a drop-out frequency
-    % Currently, only works for sine-wave stimuli
-    if strcmp(audiotype, 'sinewave')
     
-        for L = 1:length(latency)
+    % Scale amplitudes of generators 
+    for L = 1:length(latency)
 
-            matrix(:,L) = matrix(:,L).* amp(L);
+        matrix(:,L) = matrix(:,L).* amp(L);
+        
+        % Further scale amplitude if there is a drop-out frequency
+        % Currently, only works for sine-wave stimuli
+        if strcmp(audiotype, 'sinewave')
 
             if Fn>=dropoutfreq(L)  % if above the drop out frequency then remove from the bank of generators.
                 matrix(:,L) = matrix(:,L) * 0;
@@ -235,12 +237,13 @@ for f = 1:length(frequency)
 
                     end
                 end
-
             end
-        
-        
-        end   
-    end
+
+        end
+
+
+    end   
+
     
     finalwave = sum(matrix,2);
     
