@@ -109,7 +109,7 @@ end
 
 %% MASTER LOOP  
 % For sinewaves, loop through and generate a sinewave at each frequency
-% For audiofile, loop through one
+% For audiofile, loop through once
 
 for f = 1:length(frequency)
  

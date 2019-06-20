@@ -12,7 +12,7 @@ latency = [0 2.6 4.2 7.8 13.6 23.8]/1000;   % generator latencies (convert from 
 amp = [1 1 1 2 3 4];                        % amplitude for each generator
 dropoutfreq = [880 880 880 880 200 100];    % drop out frequenices for each generator. ** Doesn't work for audiofiles ** 
 LP = 200;                                   % low-pass filter cut-off freq
-dB_scale = 1;                               % scale amp of stimuli **** Doesn't work for audiofiles ** 
+dB_scale = 1;                               % scale amp of stimuli ** Doesn't work for audiofiles ** 
 
 
 % Compute theorectical FFRs
