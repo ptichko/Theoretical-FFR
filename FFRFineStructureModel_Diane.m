@@ -16,7 +16,7 @@ dB_scale = 1;                               % scale amp of stimuli ** Doesn't wo
 
 
 % Compute theorectical FFRs
-[frequency, theorNoLP, theor, t, finalwave, xFFR, finalwaveFFT]= generate_TheoFFR('wav', audiofile,...
+[~, ~, ~, t, finalwave, xFFR, finalwaveFFT]= generate_TheoFFR('wav', audiofile,...
 latency,  dropoutfreq, amp, LP, frequency, dB_scale);
 
 % Plot FFR waveform in time domain

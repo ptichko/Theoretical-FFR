@@ -27,12 +27,19 @@ function [frequency, peak, peakBP, t, finalwaveBP, xFFT, fft_truncBP] = generate
 
 
 %   Output Arguments:
-%   frequency       Frequency of auditory stimulus (useful for sinewave)
+%   frequency       Frequency of auditory stimulus (Used to plot spectral
+%                   amplitues of sinewaves.)
+%
 %   peak            Spectral amplitude of unfiltered FFR waveform
+%
 %   peakBP          Spectral amplitude of LPF FFR waveform
+%
 %   t               Time step to plot FFR waveform in time domain
+%
 %   finalwaveBP     Final FFR waveform in time domain
+%
 %   xFFT            Frequency step to plot FFT of LPF FFR waveform
+%
 %   fft_truncBP 	Spectrum (FFT) of the LPF FFR waveform
 
 % Examples:
