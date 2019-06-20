@@ -292,7 +292,6 @@ for f = 1:length(frequency)
     fftsignalBP = fftsignalBP*(2./length(finalwaveBP)); %scale it to microvolts
     fft_truncBP = fftsignalBP(1:round(length(fftsignalBP)/2)+1);  %only plot up to Nyquist.
     xFFT = [0:1:Fs/2]';   % step size is 1
-    hold on;
     
     %%% EXTRACT SPECTRAL AMPLITUDES
     switch(audiotype)
@@ -308,5 +307,4 @@ for f = 1:length(frequency)
             peakBP(f) = fft_truncBP(round(Fn+1));
     end
     
-
 end

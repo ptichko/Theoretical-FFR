@@ -4,8 +4,8 @@ close all
 %% AUDIO EXAMPLE %%
 
 % Parameters
-%audiofile = 'sinesAfade_9_audend.wav';      % audiofile to use as stimulus
-audiofile = 'end zeros audpadded.wav';      % audiofile to use as stim
+%audiofile = 'sinesAfade_9_audend.wav';      % audio file to use as stimulus
+audiofile = 'end zeros audpadded.wav';      % audio file to use as stim
 
 frequency = 200;                            % Must pass at least one freq to initiate loop in generate_TheoFFR
 latency = [0 2.6 4.2 7.8 13.6 23.8]/1000;   % generator latencies (convert from ms to s) 
