@@ -1,6 +1,8 @@
 clear all
 close all
 
+addpath('D:\Matlab\Projects\FFR Fine Structure\Updated Model\Theoretical-FFR\WAV files\');
+
 %% AUDIO EXAMPLE %%
 
 % Parameters
