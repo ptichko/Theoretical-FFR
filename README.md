@@ -8,11 +8,10 @@
 <!-- badges: end -->
 
 This is a MATLAB implementation of the Frequency-Following Response
-(FFR) model based off of Tichko & Skoe (2017)
-(<https://doi.org/10.1016/j.heares.2017.01.014>) to simulate the fine
+(FFR) model based off of [Tichko & Skoe (2017)](<https://doi.org/10.1016/j.heares.2017.01.014>) to simulate the fine
 structure of FFR spectral amplitudes. The model also includes parameters
-for simulating the Envelope-Following Response (EFR) reported in Purcell
-et. al (2004) (<https://doi.org/10.1121/1.1798354>).
+for simulating the Envelope-Following Response (EFR) reported in [Purcell
+et. al (2004)](<https://doi.org/10.1121/1.1798354>).
 
 ## The Model
 
